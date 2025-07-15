@@ -19,15 +19,33 @@ repositories {
 	mavenCentral()
 }
 
+val postgresVersion = "42.7.2"
+val flywayVersion = "9.22.1"
+
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	// Core
+	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+	// Web
+	implementation("org.springframework.boot:spring-boot-starter-web") // Spring Web
+	implementation("org.springframework.boot:spring-boot-starter-validation") // Validation
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+	// PostgresSQL Driver, JPA, H2
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	runtimeOnly("org.postgresql:postgresql:$postgresVersion")
 	runtimeOnly("com.h2database:h2")
+
+	// Flyway
+	implementation("org.flywaydb:flyway-core:${flywayVersion}")
+
+	// Tests
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+
 }
 
 kotlin {
