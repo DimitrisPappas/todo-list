@@ -28,7 +28,7 @@ class TaskMapper() {
 
     fun fromEntityListToResponseList(
         entityList: List<Task>
-    ) : List<TaskResponse> {
+    ): List<TaskResponse> {
         return entityList.map { e -> fromEntityToResponse(e) }
     }
 }

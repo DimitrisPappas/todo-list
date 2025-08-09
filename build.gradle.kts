@@ -21,6 +21,7 @@ repositories {
 
 val postgresVersion = "42.7.2"
 val flywayVersion = "9.22.1"
+val kotlinLoggingVersion = "3.0.5"
 
 dependencies {
 	// Core
@@ -38,7 +39,10 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 
 	// Flyway
-	implementation("org.flywaydb:flyway-core:${flywayVersion}")
+	implementation("org.flywaydb:flyway-core:$flywayVersion")
+
+	// Logging
+	implementation("io.github.microutils:kotlin-logging:$kotlinLoggingVersion")
 
 	// Tests
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
