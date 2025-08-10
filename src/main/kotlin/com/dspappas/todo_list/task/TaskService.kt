@@ -39,4 +39,9 @@ class TaskService(
         val updated = taskMapper.fromRequestUpdateToEntity(request, existing)
         return taskRepository.saveAndFlush(updated)
     }
+
+    @Transactional
+    fun deleteTask(id: UUID) {
+        return taskRepository.deleteById(id)
+    }
 }

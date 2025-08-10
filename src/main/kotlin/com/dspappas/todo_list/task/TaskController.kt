@@ -67,4 +67,13 @@ class TaskController(
         log.info { "Successfully update task with id $taskId" }
         return ResponseEntity.accepted().body(response)
     }
+
+    @DeleteMapping("/{taskId}")
+    fun deleteTask(
+        @PathVariable("taskId") taskId: UUID
+    ): ResponseEntity<*> {
+        val result = taskService.deleteTask(taskId)
+        log.info { "Successfully delete task with id $taskId" }
+        return ResponseEntity.noContent().build<Any>()
+    }
 }
