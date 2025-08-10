@@ -1,5 +1,6 @@
 package com.dspappas.todo_list.task
 
+import com.dspappas.todo_list.task.dtos.TaskRequestCreate
 import com.dspappas.todo_list.task.dtos.TaskResponse
 import org.springframework.stereotype.Component
 
@@ -7,12 +8,10 @@ import org.springframework.stereotype.Component
 class TaskMapper() {
 
     fun fromRequestToEntity(
-        name: String,
-        isCompleted: Boolean
+        request: TaskRequestCreate
     ): Task {
         return Task(
-            name = name,
-            isCompleted = isCompleted
+            name = request.name
         )
     }
 
