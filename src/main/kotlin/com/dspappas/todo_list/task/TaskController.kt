@@ -1,17 +1,13 @@
 package com.dspappas.todo_list.task
 
 import com.dspappas.todo_list.task.dtos.TaskRequestCreate
+import com.dspappas.todo_list.task.dtos.TaskRequestUpdate
 import com.dspappas.todo_list.task.dtos.TaskResponse
 import jakarta.validation.Valid
 import mu.KotlinLogging
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import java.util.UUID
+import org.springframework.web.bind.annotation.*
+import java.util.*
 
 private const val BASE_PATH = "api/v1/tasks"
 private val log = KotlinLogging.logger {  }
@@ -61,4 +57,14 @@ class TaskController(
         return ResponseEntity.accepted().body(response)
     }
 
+    @PatchMapping("/{taskId}")
+    fun updateTask(
+        @Valid @RequestBody request: TaskRequestUpdate,
+        @PathVariable("taskId") taskId: UUID
+    ): ResponseEntity<TaskResponse> {
+        val result = taskService.updateTask(request, taskId)
+        val response = taskMapper.fromEntityToResponse(result)
+        log.info { "Successfully update task with id $taskId" }
+        return ResponseEntity.accepted().body(response)
+    }
 }

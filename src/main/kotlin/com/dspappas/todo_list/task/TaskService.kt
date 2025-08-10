@@ -1,6 +1,8 @@
 package com.dspappas.todo_list.task
 
 import com.dspappas.todo_list.task.dtos.TaskRequestCreate
+import com.dspappas.todo_list.task.dtos.TaskRequestUpdate
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -27,7 +29,14 @@ class TaskService(
     }
 
     fun createTask(request: TaskRequestCreate): Task {
-        val task = taskMapper.fromRequestToEntity(request)
+        val task = taskMapper.fromRequestCreateToEntity(request)
         return taskRepository.saveAndFlush(task)
+    }
+
+    @Transactional
+    fun updateTask(request: TaskRequestUpdate, id: UUID): Task {
+        val existing = getTaskById(id)
+        val updated = taskMapper.fromRequestUpdateToEntity(request, existing)
+        return taskRepository.saveAndFlush(updated)
     }
 }
